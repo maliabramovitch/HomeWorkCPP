@@ -1,0 +1,43 @@
+[1] New observation
+[2] Print observation
+[3] Expected value vector
+[4] Covariance matrix
+[5] Exit
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+Enter observation name:
+161031_1259 = [ 8 1 1 0 9 6 1 8 7 8]
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+mean = [ 3.4 3 4 4.4 5.2 5.6 3.2 6.4 6.8 5.4]
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+Enter observation name:
+Enter observation values:
+mean = [3.2 2.9 3.4 5.5 5 5.1 3.7 5.4 6 5.2 ]
+cov = [
+ 7.28889 -3.64444 -2.53333 -3.55556 2.11111 -1.46667 1.51111 2.57778 0.333333 -0.266667
+ -3.64444 4.54444 -1.17778 -1.16667 -0.888889 0.0111112 -0.255556 -1.73333 -2.33333 4.8
+ -2.53333 -1.17778 7.37778 2.44444 0.777778 -1.15556 1.24444 2.26667 2.77778 -4.2
+ -3.55556 -1.16667 2.44444 11.8333 -4.44444 3.16667 1.72222 -0.777778 1.44444 -3.66667
+ 2.11111 -0.888889 0.777778 -4.44444 10.4444 -6 -0.666667 0.222222 -0.333333 -0.333333
+ -1.46667 0.0111112 -1.15556 3.16667 -6 8.54444 -3.96667 0.511111 1.44444 0.533333
+ 1.51111 -0.255556 1.24444 1.72222 -0.666667 -3.96667 8.01111 -0.977778 1.66667 2.51111
+ 2.57778 -1.73333 2.26667 -0.777778 0.222222 0.511111 -0.977778 6.71111 -1 -1.53333
+ 0.333333 -2.33333 2.77778 1.44444 -0.333333 1.44444 1.66667 -1 6 -1
+ -0.266667 4.8 -4.2 -3.66667 -0.333333 0.533333 2.51111 -1.53333 -1 12.6222
+
+
+
