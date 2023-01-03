@@ -15,7 +15,7 @@ World::World(char *config, char *first_generation, int gen) {
     ifstream firstGeneration(first_generation);
     if (!configuration || !firstGeneration) {
         cerr << "oopsi poopsi... file opening went wrong\n";
-        ::exit(0);
+        ::exit(-1);
     }
     string virusSize, pm, targett, populationSize, s;
     getline(configuration, virusSize);
@@ -45,6 +45,7 @@ World::World(char *config, char *first_generation, int gen) {
         int *arr2 = new int[stoi(virusSize)];
         if (firstGeneration.eof()) {
             cerr << "Invalid input.\n";
+            exit(-1);
         }
         string virus, name;
         getline(firstGeneration, virus);
@@ -53,6 +54,7 @@ World::World(char *config, char *first_generation, int gen) {
         for (int j = 0; j < stoi(virusSize); ++j) {
             if (ss2.eof()) {
                 cerr << "Invalid input.\n";
+                exit(-1);
             }
             ss2 >> s;
             int n = stoi(s);
