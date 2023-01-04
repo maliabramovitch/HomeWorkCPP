@@ -59,7 +59,7 @@ public:
 
     bool isEmpty();
 
-    friend std::ostream &operator<<(std::ostream &os, SortedDoubleLinkedList<T> &sdll);
+    friend std::ostream &operator<<(std::ostream &os, SortedDoubleLinkedList<T>& const sdll);
 };
 
 template<class T>
@@ -239,7 +239,7 @@ bool SortedDoubleLinkedList<T>::isEmpty() {
 }
 
 template<class T>
-std::ostream &operator<<(std::ostream &os, SortedDoubleLinkedList<T> &sdll) {
+std::ostream &operator<<(std::ostream &os, SortedDoubleLinkedList<T> const &sdll) {
     if (sdll.size == 0) {
         os << "Empty\n";
         return os;

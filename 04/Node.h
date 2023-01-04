@@ -38,7 +38,7 @@ public:
     bool operator==(const Node<T>& other);
 
 
-    friend std::ostream &operator<<(std::ostream &os, Node<T> &node);
+    friend std::ostream &operator<<(std::ostream &os, Node<T> const &node);
 };
 
 template<class T>
@@ -112,7 +112,7 @@ bool Node<T>::operator<(const Node<T> &other) {
 }
 
 template<class T>
-std::ostream &operator<<(std::ostream &os, Node<T> &node) {
+std::ostream &operator<<(std::ostream &os, Node<T> const &node) {
     os << *(node.data) << '\n';
     return os;
 }
