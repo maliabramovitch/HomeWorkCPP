@@ -1,52 +1,80 @@
 //
-// Created by Mali Abramovitch on 04/01/2023.
+// Created by Mali Abramovitch on 07/01/2023.
 //
 
-#ifndef INC_04_NODE_H
-#define INC_04_NODE_H
+#ifndef INC_14_NODE_H
+#define INC_14_NODE_H
 
 #include <ostream>
 
 template<class T>
 class Node {
 private:
-    Node<T> *next, prev;
-    T *data;
+    Node<T> *next;
+    Node<T> *prev;
+    T* data;
 public:
-    explicit Node(T *data); // default C'tor
-    explicit Node(T *data, Node<T>* next, Node<T>* prev); // default C'tor
+    explicit Node(T* data); // default C'tor
+    Node(T* data, Node<T>* next, Node<T>* prev); // default C'tor
     Node(const Node<T> &other); // copy C'tor
     Node(Node<T> &&other) noexcept; // copy C'tor
     ~Node(); // D'tor
     Node<T> &operator=(const Node<T> &other) noexcept; // copy assignment =
     Node<T> &operator=(Node<T> &&other) noexcept; // copy assignment =
 
-    inline Node *getPrev() { return prev; }
+    Node<T>* getPrev() const;
+    void setPrev(Node<T>* prevv);
 
-    inline void setPrev() { this->prev = prev; }
+    Node<T>* getNext() const;
+    void setNext(Node<T>* nextt);
 
-    inline Node *getNext() { return next; };
+    T* getData() const;
 
-    inline void setNext() { this->next = next; };
-
-    inline T *getData() { return data; }
-
-    inline void setData() { this->data = data; }
+    __attribute__((unused)) void setData(T *d);
 
     bool operator<(const Node<T>& other);
     bool operator>(const Node<T>& other);
     bool operator==(const Node<T>& other);
 
 
-    friend std::ostream &operator<<(std::ostream &os, Node<T> const &node);
+    //friend std::ostream &operator<<(std::ostream &os, const Node<T> &node);
 };
 
 template<class T>
-Node<T>::Node(T *data) : next(nullptr), prev(nullptr), data(new T(data)) {}
-
+Node<T>* Node<T>::getPrev() const{
+    return prev;
+}
 
 template<class T>
-Node<T>::Node(T *data, Node<T> *next, Node<T> *prev) : next(next), prev(prev), data(new T(data)) {}
+void Node<T>::setPrev(Node<T> *prevv) {
+    prev = prevv;
+}
+
+template<class T>
+Node<T>* Node<T>::getNext() const{
+    return next;
+}
+
+template<class T>
+void Node<T>::setNext(Node<T> *nextt) {
+    next = nextt;
+}
+
+template<class T>
+T* Node<T>::getData() const {
+    return data;
+}
+
+template<class T>
+__attribute__((unused)) void Node<T>::setData(T *d) {
+    data = d;
+}
+
+template<class T>
+Node<T>::Node(T* d) : next(nullptr), prev(nullptr), data(d){}
+
+template<class T>
+Node<T>::Node(T* d, Node<T> *next, Node<T> *prev) : next(next), prev(prev), data(d) {}
 
 template<class T>
 Node<T>::Node(const Node<T> &other) {
@@ -70,14 +98,12 @@ Node<T>::Node(Node<T> &&other) noexcept {
 
 template<class T>
 Node<T>::~Node() {
-    delete next;
-    delete prev;
     delete data;
 }
 
 template<class T>
 Node<T> &Node<T>::operator=(const Node<T> &other) noexcept {
-    if (this == other) return *this;
+    if (*this == other) return *this;
     next = other.next;
     next = other.prev;
     next = other.data;
@@ -111,10 +137,12 @@ bool Node<T>::operator<(const Node<T> &other) {
     return (*data > *other.data);
 }
 
+
 template<class T>
 std::ostream &operator<<(std::ostream &os, Node<T> const &node) {
-    os << *(node.data) << '\n';
+    os << *(node.getData()) << '\n';
     return os;
 }
 
-#endif //INC_04_NODE_H
+
+#endif //INC_14_NODE_H

@@ -40,7 +40,7 @@ public:
 private:
     Virus *target;
     Virus **population;
-    int populationSize{};
+    int populationSize;
     Virus *theBestVirusEver = nullptr;
     int virusSize;
     bool itsAMatch = false; //true if one of the viruses matching to the target.
