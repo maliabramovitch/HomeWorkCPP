@@ -6,8 +6,7 @@
 #include "Virus.h"
 
 
-
-Virus::Virus(std::string name, int *per, int size, int pmm, int* familySize, char family) {
+Virus::Virus(std::string name, int *per, int size, int pmm, int *familySize, char family) {
     this->name = std::move(name);
     this->permutation = new int[size];
     this->permutation = per;
@@ -20,7 +19,7 @@ Virus::Virus(std::string name, int *per, int size, int pmm, int* familySize, cha
 }
 
 Virus::Virus(const Virus &other) {
-    this->name= other.name;
+    this->name = other.name;
     this->size = other.size;
     this->permutation = new int[other.size];
     for (int i = 0; i < size; ++i) {
@@ -65,6 +64,7 @@ Virus &Virus::operator=(Virus const &other) {
     this->name = other.name;
     this->errorIndex = other.errorIndex;
     this->family = other.family;
+
     return *this;
 }
 
@@ -96,13 +96,16 @@ int Virus::operator[](int i) {
 }
 
 void Virus::operator*() {
+
     for (int n = 0; n < pm; ++n) {
         int i, j, tmp;
         i = rand() % size;
         j = rand() % size;
+        //std::cout<< n << " 1. " << *this << '\t' << i << '\t' << j << std::endl;
         tmp = this->permutation[i];
         this->permutation[i] = this->permutation[j];
         this->permutation[j] = tmp;
+        //std::cout << n<< " 2. "<< *this << '\t' << i << '\t' << j << std::endl;
     }
 }
 
@@ -121,22 +124,20 @@ void Virus::calculateErrorIndex(Virus *target) {
 }
 
 
-bool Virus::operator<(Virus& other) {
+bool Virus::operator<(Virus &other) {
     if (this->getIndexError() > other.getIndexError())
         return false;
     else if (getIndexError() < other.getIndexError()) {
         return true;
-    }
-    else  {
+    } else {
         if (this->name == other.name) {
             if (this->id < other.id) return true;
             else return false;
-        }
-        else return true;
+        } else return true;
     }
 }
 
-bool Virus::operator>(Virus& other) {
+bool Virus::operator>(Virus &other) {
     return !(*this < other) && !(*this == other);
 }
 
@@ -145,7 +146,7 @@ bool Virus::operator==(Virus &other) {
     if (name != other.name) return false;
     if (id != other.id) return false;
     for (int i = 0; i < size; ++i) {
-        if (permutation[i]!= other.permutation[i]) return false;
+        if (permutation[i] != other.permutation[i]) return false;
     }
     return true;
 }
