@@ -12,77 +12,74 @@
 #include <algorithm>
 #include <string>
 
-template<typename V=std::string>
 class DirectedGraph {
 private:
-    std::vector<V> elementToIndex;
+    std::vector<std::string> elementToIndex;
     std::vector<std::vector<double>> matrix;
 
 public:
     DirectedGraph();
 
-    DirectedGraph(const DirectedGraph<V> &other);
+    DirectedGraph(const DirectedGraph &other);
 
-    DirectedGraph<V> &operator=(const DirectedGraph<V> &other);
+    DirectedGraph &operator=(const DirectedGraph &other);
 
     ~DirectedGraph();
 
-    void addVertex(V v);
+    void addVertex(std::string v);
 
-    bool removeVertex(V v);
+    bool removeVertex(std::string v);
 
-    void addEdge(V v1, V v2, double weight);
+    void addEdge(std::string v1, std::string v2, double weight);
 
-    bool removeEdge(V v1, V v2);
+    bool removeEdge(std::string v1, std::string v2);
 
-    bool updateWeight(V v1, V v2, double weight);
+    bool updateWeight(std::string v1, std::string v2, double weight);
 
-    double getWeight(V v1, V v2);
+    double getWeight(std::string v1, std::string v2);
 
-    std::vector<V> getFromVertex(V v);
+    std::vector<std::string> getFromVertex(std::string v);
 
-    std::vector<V>& getConnectionsFromVertex(V v);
+    std::vector<std::string>& getConnectionsFromVertex(std::string v);
 
-    std::vector<V> getToVertex(V v);
+    std::vector<std::string> getToVertex(std::string v);
 
-    template<typename E>
-    friend std::ostream &operator<<(std::ostream &os, DirectedGraph<E> &dg);
+    friend std::ostream &operator<<(std::ostream &os, DirectedGraph &dg);
 
-    bool containsVertex(V v);
+    bool containsVertex(std::string v);
 
-    int getIndex(V v);
+    int getIndex(std::string v);
 
-    void recursiveHelper(V source, std::vector<V>& ret);
+    void recursiveHelper(std::string source, std::vector<std::string>& ret);
 
 };
 
-template<typename V>
-bool DirectedGraph<V>::containsVertex(V v) {
+bool DirectedGraph::containsVertex(std::string v) {
     if (std::find(elementToIndex.begin(), elementToIndex.end(), v) == elementToIndex.end())
         return false;
     return true;
 }
 
-template<typename V>
-int DirectedGraph<V>::getIndex(V v) {
+
+int DirectedGraph::getIndex(std::string v) {
     if (!containsVertex(v)) return -1;
     return std::find(elementToIndex.begin(), elementToIndex.end(), v) - elementToIndex.begin();
 }
 
-template<typename V>
-DirectedGraph<V>::DirectedGraph() {
-    elementToIndex = std::vector<V>();
+
+DirectedGraph::DirectedGraph() {
+    elementToIndex = std::vector<std::string>();
     matrix = std::vector<std::vector<double>>();
 }
 
-template<typename V>
-DirectedGraph<V>::DirectedGraph(const DirectedGraph<V> &other) {
+
+DirectedGraph::DirectedGraph(const DirectedGraph &other) {
     matrix = std::vector<std::vector<double>>(other.matrix);
-    elementToIndex = std::vector<V>(other.elementToIndex);
+    elementToIndex = std::vector<std::string>(other.elementToIndex);
 }
 
 template<typename V>
-DirectedGraph<V> &DirectedGraph<V>::operator=(const DirectedGraph<V> &other) {
+DirectedGraph &DirectedGraph<V>::operator=(const DirectedGraph &other) {
     if (this == &other) {
         return *this;
     }
@@ -91,8 +88,8 @@ DirectedGraph<V> &DirectedGraph<V>::operator=(const DirectedGraph<V> &other) {
     return *this;
 }
 
-template<typename V>
-DirectedGraph<V>::~DirectedGraph() {
+
+DirectedGraph::~DirectedGraph() {
     for (std::vector<double> vect: matrix) {
         vect.clear();
     }
@@ -100,8 +97,7 @@ DirectedGraph<V>::~DirectedGraph() {
     elementToIndex.clear();
 }
 
-template<typename V>
-void DirectedGraph<V>::addVertex(V v) {
+void DirectedGraph::addVertex(V v) {
     if (!containsVertex(v))
         return;
     elementToIndex.push_back(v);
@@ -111,8 +107,7 @@ void DirectedGraph<V>::addVertex(V v) {
     matrix.push_back(std::vector<double>(matrix.size() + 1, 0));
 }
 
-template<typename V>
-bool DirectedGraph<V>::removeVertex(V v) {
+bool DirectedGraph<std::string>::removeVertex(std::string v) {
     if (!containsVertex(v))
         return false;
     int index = getIndex(v);
@@ -124,20 +119,20 @@ bool DirectedGraph<V>::removeVertex(V v) {
     return true;
 }
 
-template<typename V>
-void DirectedGraph<V>::addEdge(V v1, V v2, double weight) {
+
+void DirectedGraph::addEdge(V v1, V v2, double weight) {
     addVertex(v1);
     addVertex(v2);
     updateWeight(v1, v2, weight);
 }
 
-template<typename V>
-bool DirectedGraph<V>::removeEdge(V v1, V v2) {
+
+bool DirectedGraph<std::string>::removeEdge(V v1, V v2) {
     return updateWeight(v1, v2, 0.0);
 }
 
-template<typename V>
-bool DirectedGraph<V>::updateWeight(V v1, V v2, double weight) {
+
+bool DirectedGraph<V>::updateWeight(std::string v1, std::string v2, double weight) {
     if (!containsVertex(v1) || !containsVertex(v2))
         return false;
     if (weight < 0.0) {
@@ -149,7 +144,6 @@ bool DirectedGraph<V>::updateWeight(V v1, V v2, double weight) {
     return true;
 }
 
-template<typename V>
 double DirectedGraph<V>::getWeight(V v1, V v2) {
     if (!containsVertex(v1) || !containsVertex(v2))
         return false;
@@ -158,8 +152,8 @@ double DirectedGraph<V>::getWeight(V v1, V v2) {
     return matrix[indexV1][indexV2];
 }
 
-template<typename V>
-std::vector<V> DirectedGraph<V>::getFromVertex(V v) {
+
+std::vector<std::string> DirectedGraph::getFromVertex(std::string v) {
     if (!containsVertex(v)) return nullptr;
     std::vector<V> ret = std::vector<V>();
     int indexV = getIndex(v);
@@ -172,19 +166,17 @@ std::vector<V> DirectedGraph<V>::getFromVertex(V v) {
     return ret;
 }
 
-template<typename V>
-std::vector<V>& DirectedGraph<V>::getConnectionsFromVertex(V v) {
+std::vector<V>& DirectedGraph::getConnectionsFromVertex(std::string v) {
     std::vector<V> connections = std::vector<V>();
     recursiveHelper(v, connections);
     return connections;
 }
 
-template<typename V>
-void  DirectedGraph<V>::recursiveHelper(V source, std::vector<V>& ret) {
+void  DirectedGraph<V>::recursiveHelper(std::string source, std::vector<std::string>& ret) {
     if (std::find(ret.begin(), ret.end(), source) != ret.end())
         return;
     ret.push_back(source);
-    std::vector<V> destination = getFromVertex(source);
+    std::vector<std::string> destination = getFromVertex(source);
     if (destination.empty()) {
         return;
     }
@@ -194,10 +186,9 @@ void  DirectedGraph<V>::recursiveHelper(V source, std::vector<V>& ret) {
     return;
 }
 
-template<typename V>
-std::vector<V> DirectedGraph<V>::getToVertex(V v) {
+std::vector<std::string> DirectedGraph::getToVertex(std::string v) {
     if (!containsVertex(v)) return nullptr;
-    std::vector<V> ret = std::vector<V>();
+    std::vector<std::string> ret = std::vector<std::string>();
     int indexV = getIndex(v);
     for (int i = 0; i < matrix.size(); ++i) {
         if (matrix[i][indexV] > 0.0) {
@@ -207,12 +198,11 @@ std::vector<V> DirectedGraph<V>::getToVertex(V v) {
     return ret;
 }
 
-template<typename V>
-std::ostream &operator<<(std::ostream &os, DirectedGraph<V> &dg) {
+std::ostream &operator<<(std::ostream &os, DirectedGraph &dg) {
     for (int i =0; i < dg.elementToIndex.size(); ++i){
-        V element = dg.elementToIndex[i];
+        std::string element = dg.elementToIndex[i];
         os << element << ":\t";
-        std::vector<V> out = dg.getFromVertex(element);
+        std::vector<std::string> out = dg.getFromVertex(element);
         if (out != nullptr) {
             for (int j = 0; j < out.size(); ++j) {
                 os << out[j] << " " ;
