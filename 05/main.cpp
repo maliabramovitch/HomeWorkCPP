@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include "MyException.h"
 #include "Neverland.h"
 using namespace std;
@@ -28,4 +29,15 @@ int main(int argc, char* argv[]) {
     nl->getLinesInfo(out);
     delete nl;
 return 0;
+=======
+#include <iostream>
+#include "DirectedGraph.h"
+#include <string>
+
+using namespace std;
+int main() {
+    DirectedGraph<string>* g = new DirectedGraph<string>();
+    g->addEdge(string ("A"), string ("B"), 2);
+    cout << (*g);
+>>>>>>> Stashed changes
 }
