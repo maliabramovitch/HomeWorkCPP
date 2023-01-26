@@ -10,12 +10,12 @@
 class Neverland {
 private:
     DirectedGraph* dg;
-    void writeToFile(std::string outFile);
+    void writeToFile(std::string outFile); // penning a file and write the graph to the file.
 public:
-    Neverland();
-    Neverland(const Neverland& other);
-    Neverland& operator=(const Neverland& other);
-    ~Neverland();
+    Neverland(); // default C'tor
+    Neverland(const Neverland& other); // copy C'tor
+    Neverland& operator=(const Neverland& other); // copy assignment
+    ~Neverland(); // D'tor
 
     void initTransportLine(std::string fileName); // reads the file and initialize the transport lines
     void getLinesInfo(std::string outFile); // get the source and returns the required information
